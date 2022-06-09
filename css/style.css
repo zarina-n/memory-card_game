@@ -1,0 +1,86 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: 'StratosSkyeng';
+    font-style: normal;
+    background-color: #004980;
+}
+
+.wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.level {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 480px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: #C2F5FF;
+    border-radius: 12px;
+
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+
+}
+
+.level__title {
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 48px;
+    text-align: center;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #004980;
+    margin-bottom: 48px;
+}
+
+.level__choices {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 24px;
+}
+.level__choice {
+    
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 72px;
+    color: #0080C1;
+
+    border: none;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+
+    width: 98px;
+    height: 98px;
+    left: 341px;
+    top: 354px;
+
+    margin-bottom: 65px;
+    cursor: pointer;
+}
+.level__start {
+    width: 246px;
+    height: 50px;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #FFFFFF;
+    background-color: #7AC100;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+}
