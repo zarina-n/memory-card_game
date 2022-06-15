@@ -1,30 +1,23 @@
-const levelForm = document.querySelector('#level');
+const levelForm = document.getElementById('level');
 
 const levelButtons = levelForm.querySelectorAll('.level__choice');
 
-const levelChoices = levelForm.querySelector('#level__choices');
-const levelSubmit = levelForm.querySelectorAll('#level__start')
-
-// levelButtons.forEach(button => {
-//     button.addEventListener('click', (event) => {
-//         event.preventDefault();
-//         console.log(button.value);
-
-//         window.application.level = button.value;
-//     })
-// });
+const levelChoices = document.getElementById('level__choices');
+const levelSubmit = document.getElementById('level__start');
 
 levelChoices.addEventListener('click', (event) => {
     event.preventDefault();
-    target = event.target
-    if (target.closest('.level__choice')) {
-        console.log(target.value);
+    target = event.target;
 
-        window.application.level = target.value;
+    if (target.closest('button')) {
+        console.log(target.dataset.level);
+
+        window.application.level = target.dataset.level;
     }
 });
 
 levelForm.addEventListener('submit', (event) => {
+
     if (!window.application.level) {
         event.preventDefault();
         levelButtons.forEach(button => {
