@@ -5,11 +5,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game</title>
+    <title>Карты</title>
+    <link rel="stylesheet" href="./src/css/style.css">
+    <link rel="stylesheet" href="./src/css/fonts/stratos/stylesheet.css" type = "text/css">
+
 </head>
 
 <body>
+    <div class="wrapper">
+        <div class="header">
+            <div class="header__time">
+                <div class="timer__values">
+                    <span class="timer__text">min</span>
+                    <span class="timer__numbers">00</span>
+                </div>
+                <span class="timer__numbers">.</span>
+                <div class="timer__values">
+                    <span class="timer__text">sek</span>
+                    <span class="timer__numbers">00</span>
+                </div>
+            </div>
+            <div class="header__button">
+                <button class="header__button button">Начать заново</button>
+            </div>
+        </div>
+        <div class="cards-field" id="cards-field">
 
+        </div>
+    </div>
+
+    <script src="./src/js/global.js"></script>
+    <script src="./src/js/game_screen.js"></script>
 </body>
 
 </html>
