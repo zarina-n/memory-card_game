@@ -130,14 +130,16 @@ function renderLevelScreen(level) {
 }
 
 function getLevelNumber() {
+    let level = localStorage.getItem('level')
     let levelNumber
-    if (window.application.level === 'easy') {
+
+    if (level === 'easy') {
         levelNumber = 3
     }
-    if (window.application.level === 'medium') {
+    if (level === 'medium') {
         levelNumber = 6
     }
-    if (window.application.level === 'hard') {
+    if (level === 'hard') {
         levelNumber = 9
     }
 
@@ -145,5 +147,4 @@ function getLevelNumber() {
 }
 
 console.log(getLevelNumber())
-console.log(window.application)
 renderLevelScreen(getLevelNumber())
