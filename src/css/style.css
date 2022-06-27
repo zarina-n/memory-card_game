@@ -12,6 +12,7 @@ body {
 }
 
 .wrapper {
+    height: 100vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -69,6 +70,10 @@ body {
     cursor: pointer;
 }
 
+.error {
+    border: 1px solid red;
+}
+
 .level__choice:hover {
     background-color: lightblue;
 }
@@ -96,7 +101,7 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 100vw;
-    margin-bottom: 40px;
+    margin: 40px;
 }
 
 .header__time {
@@ -124,36 +129,35 @@ body {
 }
 
 .cards-field {
-    height: 500px;
-    width: 100vw;
     display: grid;
-    justify-items: center;
+    justify-content: center;
     align-items: center;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    grid-gap: 20px;
-}
-
-.card {
+    grid-gap: 15px;
     perspective: 1000px;
 }
 
-.card__inner {
-    transition: transform 1s;
-    transform-style: preserve-3d;
+.card {
+    width: 95px;
+    height: 135px;
     position: relative;
+    transform-style: preserve-3d;
+    transition: all 1s ease;
     cursor: pointer;
 }
 
-.card__inner.is-flipped {
-    transform: rotateY(180deg);
+.face,
+.back {
+    border-radius: 4px;
+    position: absolute;
+    pointer-events: none;
 }
 
-.card-face {
-    position: absolute;
+.back {
     backface-visibility: hidden;
 }
 
-.card_front {
+.flipCard {
     transform: rotateY(180deg);
 }
