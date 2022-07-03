@@ -1,6 +1,21 @@
-const cardsField = document.getElementById('cards-field')
+const cardsField = document.getElementById('cards-field') as HTMLDivElement
+const newGameButtons =
+    document.querySelectorAll<HTMLButtonElement>('.new-game-button')
+const winWindow = document.getElementById('win-window') as HTMLDivElement
+const looseWindow = document.getElementById('loose-window') as HTMLDivElement
+const header = document.getElementById('header') as HTMLDivElement
+const minuteSpan = document.getElementById('minutes') as HTMLSpanElement
+const secondSpan = document.getElementById('seconds') as HTMLSpanElement
+
+let totalSeconds = 0
 
 const cover = { imgSrc: './static/img/card-suit.jpg', name: 'back' }
+
+interface dataObject {
+    [key: string]: any
+}
+
+const data: dataObject = {}
 
 const cardData = [
     { imgSrc: './static/img/cards/card_1.jpg', name: 'card_1' },
@@ -41,7 +56,7 @@ const cardData = [
     { imgSrc: './static/img/cards/card_36.jpg', name: 'card_36' },
 ]
 
-let levelNumber
+let levelNumber: number
 
 function getLevelNumber() {
     let level = localStorage.getItem('level')
@@ -62,7 +77,7 @@ function getLevelNumber() {
 function randomize() {
     cardData.sort(() => Math.random() - 0.5)
 
-    const newArr = cardData.slice(1, levelNumber + 1)
+    const newArr = cardData.slice(1, levelNumber.valueOf() + 1)
     const duplicate = [...newArr]
     const finalCardField = newArr.concat(duplicate)
 
@@ -71,11 +86,12 @@ function randomize() {
     return finalCardField
 }
 
-function checkCards(event) {
-    const clickedCard = event.target
+function checkCards(event: Event) {
+    const clickedCard = event.target as HTMLElement
 
     clickedCard.classList.add('clicked')
-    const clickedCards = document.querySelectorAll('.clicked')
+    const clickedCards = document.querySelectorAll<HTMLElement>('.clicked')
+    const flippedCards = document.querySelectorAll<HTMLElement>('.flipCard')
 
     if (clickedCards.length === 2) {
         if (
@@ -83,7 +99,10 @@ function checkCards(event) {
             clickedCards[1].getAttribute('name')
         ) {
             setTimeout(() => {
-                alert('A score!')
+                if (flippedCards.length === levelNumber * 2) {
+                    showPopup(winWindow)
+                }
+                console.log('score')
             }, 1000)
 
             clickedCards.forEach((card) => {
@@ -92,24 +111,27 @@ function checkCards(event) {
             })
         } else {
             setTimeout(() => {
-                alert('try again')
+                showPopup(looseWindow)
+                console.log('loose')
             }, 1000)
-
-            clickedCards.forEach((card) => {
-                card.classList.remove('clicked')
-                setTimeout(() => {
-                    card.classList.remove('flipCard')
-                }, 1000)
-            })
         }
     }
 }
 
-function showCard(card) {
+function showPopup(screen: HTMLElement) {
+    screen.classList.remove('hidden')
+    header.style.opacity = '0.5'
+    cardsField.style.opacity = '0.5'
+    stopTimer()
+}
+
+function showCard(card: HTMLElement) {
+    card.style.pointerEvents = 'none'
     card.classList.toggle('flipCard')
 
     setTimeout(() => {
         card.classList.toggle('flipCard')
+        card.style.pointerEvents = 'auto'
     }, 4000)
 }
 
@@ -159,4 +181,50 @@ function createCardBlock() {
     cardGenerator()
 }
 
+newGameButtons.forEach((newGameButton) => {
+    newGameButton.addEventListener('click', () => {
+        location.href = './index.html'
+    })
+})
+
+function timer() {
+    totalSeconds++
+
+    console.log(totalSeconds)
+
+    let minutes: number | string = Math.floor(totalSeconds / 60)
+    let seconds: number | string = totalSeconds % 60
+
+    if (seconds < 10) {
+        seconds = `0${seconds}`
+    }
+    if (minutes < 10) {
+        minutes = `0${minutes}`
+
+        data.minutes = minutes
+        data.seconds = seconds
+
+        minuteSpan.textContent = `${minutes}`
+        secondSpan.textContent = `${seconds}`
+    }
+}
+
+function startTimer() {
+    let interval = setInterval(timer, 1000)
+    data.interval = interval
+}
+
+function stopTimer() {
+    const popUpTime = document.querySelectorAll('.popup__time')
+    popUpTime.forEach((time) => {
+        time.textContent = `${data.minutes}.${data.seconds}`
+    })
+
+    clearInterval(data.interval)
+}
+
 createCardBlock()
+
+setTimeout(() => {
+    startTimer()
+}, 4000)
