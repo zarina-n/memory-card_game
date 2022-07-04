@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
+        "jest": "jest",
         "format": "prettier --write ./src/",
         "lint:js": "eslint ./src/**/*.js",
         "lint:css": "stylelint ./src/**/*.css",
@@ -36,6 +37,7 @@
         "eslint-plugin-prettier": "^4.0.0",
         "html-webpack-plugin": "^5.5.0",
         "husky": "^8.0.1",
+        "jest": "^28.1.2",
         "mini-css-extract-plugin": "^2.6.1",
         "prettier": "^2.7.0",
         "style-loader": "^3.3.1",

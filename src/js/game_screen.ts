@@ -1,11 +1,13 @@
 const cardsField = document.getElementById('cards-field') as HTMLDivElement
-const newGameButtons =
-    document.querySelectorAll<HTMLButtonElement>('.new-game-button')
 const winWindow = document.getElementById('win-window') as HTMLDivElement
 const looseWindow = document.getElementById('loose-window') as HTMLDivElement
 const header = document.getElementById('header') as HTMLDivElement
 const minuteSpan = document.getElementById('minutes') as HTMLSpanElement
 const secondSpan = document.getElementById('seconds') as HTMLSpanElement
+
+const LEVEL_EASY = 'easy'
+const LEVEL_MEDIUM = 'medium'
+const LEVEL_HARD = 'hard'
 
 let totalSeconds = 0
 
@@ -56,34 +58,34 @@ const cardData = [
     { imgSrc: './static/img/cards/card_36.jpg', name: 'card_36' },
 ]
 
-let levelNumber: number
+let cardPairs: number
 
 function getLevelNumber() {
     let level = localStorage.getItem('level')
 
-    if (level === 'easy') {
-        levelNumber = 3
+    if (level === LEVEL_EASY) {
+        cardPairs = 3
     }
-    if (level === 'medium') {
-        levelNumber = 6
+    if (level === LEVEL_MEDIUM) {
+        cardPairs = 6
     }
-    if (level === 'hard') {
-        levelNumber = 9
+    if (level === LEVEL_HARD) {
+        cardPairs = 9
     }
 
-    return levelNumber
+    return cardPairs
 }
 
-function randomize() {
-    cardData.sort(() => Math.random() - 0.5)
+function randomize(data: dataObject, toSliceNumber: number) {
+    data.sort(() => Math.random() - 0.5)
 
-    const newArr = cardData.slice(1, levelNumber.valueOf() + 1)
-    const duplicate = [...newArr]
-    const finalCardField = newArr.concat(duplicate)
+    const newArray = data.slice(1, toSliceNumber.valueOf() + 1)
+    const duplicateArray = [...newArray]
+    const finalCardFieldArray = newArray.concat(duplicateArray)
 
-    finalCardField.sort(() => Math.random() - 0.5)
+    finalCardFieldArray.sort(() => Math.random() - 0.5)
 
-    return finalCardField
+    return finalCardFieldArray
 }
 
 function checkCards(event: Event) {
@@ -99,7 +101,7 @@ function checkCards(event: Event) {
             clickedCards[1].getAttribute('name')
         ) {
             setTimeout(() => {
-                if (flippedCards.length === levelNumber * 2) {
+                if (flippedCards.length === cardPairs * 2) {
                     showPopup(winWindow)
                 }
                 console.log('score')
@@ -136,9 +138,9 @@ function showCard(card: HTMLElement) {
 }
 
 function cardGenerator() {
-    const cards = randomize()
+    const cards = randomize(cardData, cardPairs)
 
-    cards.forEach((item) => {
+    cards.forEach((item: dataObject) => {
         const card = document.createElement('div')
         const face = document.createElement('img')
         const back = document.createElement('img')
@@ -169,28 +171,22 @@ function cardGenerator() {
 function createCardBlock() {
     getLevelNumber()
 
-    if (levelNumber === 9) {
-        cardsField.style.gridTemplateColumns = 'repeat(6, 1fr)'
+    const cardsGrid = document.querySelector('.cards-field') as HTMLDivElement
+
+    if (cardPairs === 9) {
+        cardsGrid.style.gridTemplateColumns = 'repeat(6, 1fr)'
     }
-    if (levelNumber === 6) {
-        cardsField.style.gridTemplateColumns = 'repeat(4, 1fr)'
-    } else if (levelNumber === 3) {
-        cardsField.style.gridTemplateColumns = 'repeat(3, 1fr)'
+    if (cardPairs === 6) {
+        cardsGrid.style.gridTemplateColumns = 'repeat(4, 1fr)'
+    } else if (cardPairs === 3) {
+        cardsGrid.style.gridTemplateColumns = 'repeat(3, 1fr)'
     }
 
     cardGenerator()
 }
 
-newGameButtons.forEach((newGameButton) => {
-    newGameButton.addEventListener('click', () => {
-        location.href = './index.html'
-    })
-})
-
 function timer() {
     totalSeconds++
-
-    console.log(totalSeconds)
 
     let minutes: number | string = Math.floor(totalSeconds / 60)
     let seconds: number | string = totalSeconds % 60
@@ -200,13 +196,13 @@ function timer() {
     }
     if (minutes < 10) {
         minutes = `0${minutes}`
-
-        data.minutes = minutes
-        data.seconds = seconds
-
-        minuteSpan.textContent = `${minutes}`
-        secondSpan.textContent = `${seconds}`
     }
+
+    data.minutes = minutes
+    data.seconds = seconds
+
+    minuteSpan.textContent = `${minutes}`
+    secondSpan.textContent = `${seconds}`
 }
 
 function startTimer() {
