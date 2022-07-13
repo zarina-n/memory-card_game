@@ -1,17 +1,15 @@
-const cardsField = document.getElementById('cards-field') as HTMLDivElement
-const winWindow = document.getElementById('win-window') as HTMLDivElement
-const looseWindow = document.getElementById('loose-window') as HTMLDivElement
-const header = document.getElementById('header') as HTMLDivElement
-const minuteSpan = document.getElementById('minutes') as HTMLSpanElement
-const secondSpan = document.getElementById('seconds') as HTMLSpanElement
+const cardsField: HTMLElement | null = document.getElementById('cards-field')
+const winWindow: HTMLElement | null = document.getElementById('win-window')
+const looseWindow: HTMLElement | null = document.getElementById('loose-window')
+const screenHeader: HTMLElement | null = document.getElementById('header')
+const gameTimeMinutes: HTMLElement | null = document.getElementById('minutes')
+const gameTimeSeconds: HTMLElement | null = document.getElementById('seconds')
 
 const LEVEL_EASY = 'easy'
 const LEVEL_MEDIUM = 'medium'
 const LEVEL_HARD = 'hard'
 
 let totalSeconds = 0
-
-const cover = { imgSrc: './static/img/card-suit.jpg', name: 'back' }
 
 interface dataObject {
     [key: string]: any
@@ -57,6 +55,7 @@ const cardData = [
     { imgSrc: './static/img/cards/card_35.jpg', name: 'card_35' },
     { imgSrc: './static/img/cards/card_36.jpg', name: 'card_36' },
 ]
+const cardCover = { imgSrc: './static/img/card-suit.jpg', name: 'back' }
 
 let cardPairs: number
 
@@ -76,22 +75,23 @@ function getLevelNumber() {
     return cardPairs
 }
 
-function randomize(data: dataObject, toSliceNumber: number) {
+function getRandomCards(data: dataObject, toSliceNumber: number) {
     data.sort(() => Math.random() - 0.5)
 
     const newArray = data.slice(1, toSliceNumber.valueOf() + 1)
     const duplicateArray = [...newArray]
-    const finalCardFieldArray = newArray.concat(duplicateArray)
+    const finalCardSetArray = newArray.concat(duplicateArray)
 
-    finalCardFieldArray.sort(() => Math.random() - 0.5)
+    finalCardSetArray.sort(() => Math.random() - 0.5)
 
-    return finalCardFieldArray
+    return finalCardSetArray
 }
 
-function checkCards(event: Event) {
-    const clickedCard = event.target as HTMLElement
+function checkCardsForMatch(event: Event) {
+    const clickedCard = event.target as HTMLDivElement
 
-    clickedCard.classList.add('clicked')
+    clickedCard?.classList.add('clicked')
+
     const clickedCards = document.querySelectorAll<HTMLElement>('.clicked')
     const flippedCards = document.querySelectorAll<HTMLElement>('.flipCard')
 
@@ -102,7 +102,7 @@ function checkCards(event: Event) {
         ) {
             setTimeout(() => {
                 if (flippedCards.length === cardPairs * 2) {
-                    showPopup(winWindow)
+                    showPopupScreen(winWindow!)
                 }
                 console.log('score')
             }, 1000)
@@ -113,21 +113,21 @@ function checkCards(event: Event) {
             })
         } else {
             setTimeout(() => {
-                showPopup(looseWindow)
+                showPopupScreen(looseWindow!)
                 console.log('loose')
             }, 1000)
         }
     }
 }
 
-function showPopup(screen: HTMLElement) {
+function showPopupScreen(screen: HTMLElement) {
     screen.classList.remove('hidden')
-    header.style.opacity = '0.5'
-    cardsField.style.opacity = '0.5'
+    if (screenHeader) screenHeader.style.opacity = '0.5'
+    if (cardsField) cardsField.style.opacity = '0.5'
     stopTimer()
 }
 
-function showCard(card: HTMLElement) {
+function showCardTimer(card: HTMLElement) {
     card.style.pointerEvents = 'none'
     card.classList.toggle('flipCard')
 
@@ -138,32 +138,32 @@ function showCard(card: HTMLElement) {
 }
 
 function cardGenerator() {
-    const cards = randomize(cardData, cardPairs)
+    const cards = getRandomCards(cardData, cardPairs)
 
     cards.forEach((item: dataObject) => {
         const card = document.createElement('div')
-        const face = document.createElement('img')
-        const back = document.createElement('img')
+        const cardFace = document.createElement('img')
+        const cardBack = document.createElement('img')
 
         card.classList.add('card')
-        face.classList.add('face')
-        back.classList.add('back')
+        cardFace.classList.add('face')
+        cardBack.classList.add('back')
 
         card.setAttribute('name', item.name)
 
-        cardsField.appendChild(card)
-        card.appendChild(face)
-        card.appendChild(back)
+        cardsField?.appendChild(card)
+        card.appendChild(cardFace)
+        card.appendChild(cardBack)
 
-        face.src = item.imgSrc
-        back.src = cover.imgSrc
+        cardFace.src = item.imgSrc
+        cardBack.src = cardCover.imgSrc
 
-        showCard(card)
+        showCardTimer(card)
 
-        card.addEventListener('click', (event) => {
+        card.addEventListener('click', (event: MouseEvent) => {
             card.classList.add('flipCard')
 
-            checkCards(event)
+            checkCardsForMatch(event)
         })
     })
 }
@@ -171,15 +171,13 @@ function cardGenerator() {
 function createCardBlock() {
     getLevelNumber()
 
-    const cardsGrid = document.querySelector('.cards-field') as HTMLDivElement
-
     if (cardPairs === 9) {
-        cardsGrid.style.gridTemplateColumns = 'repeat(6, 1fr)'
+        cardsField?.classList.add('nine-pairs')
     }
     if (cardPairs === 6) {
-        cardsGrid.style.gridTemplateColumns = 'repeat(4, 1fr)'
+        cardsField?.classList.add('six-pairs')
     } else if (cardPairs === 3) {
-        cardsGrid.style.gridTemplateColumns = 'repeat(3, 1fr)'
+        cardsField?.classList.add('three-pairs')
     }
 
     cardGenerator()
@@ -188,21 +186,24 @@ function createCardBlock() {
 function timer() {
     totalSeconds++
 
-    let minutes: number | string = Math.floor(totalSeconds / 60)
-    let seconds: number | string = totalSeconds % 60
+    let minutes: number = Math.floor(totalSeconds / 60)
+    let seconds: number = totalSeconds % 60
 
     if (seconds < 10) {
-        seconds = `0${seconds}`
+        gameTimeSeconds!.textContent = `0${seconds}`
+        data.seconds = `0${seconds}`
+    } else {
+        gameTimeSeconds!.textContent = `${seconds}`
+        data.seconds = seconds
     }
+
     if (minutes < 10) {
-        minutes = `0${minutes}`
+        gameTimeMinutes!.textContent = `0${minutes}`
+        data.minutes = `0${minutes}`
+    } else {
+        gameTimeMinutes!.textContent = `${minutes}`
+        data.minutes = minutes
     }
-
-    data.minutes = minutes
-    data.seconds = seconds
-
-    minuteSpan.textContent = `${minutes}`
-    secondSpan.textContent = `${seconds}`
 }
 
 function startTimer() {

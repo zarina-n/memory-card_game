@@ -145,6 +145,18 @@ body {
     perspective: 1000px;
 }
 
+.three-pairs {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.six-pairs {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.nine-pairs {
+    grid-template-columns: repeat(6, 1fr);
+}
+
 .card {
     width: 95px;
     height: 135px;
