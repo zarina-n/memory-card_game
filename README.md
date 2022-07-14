@@ -1,5 +1,7 @@
 Memory Game
+
 Summary
+
 Memory game is a type of classical memory card game which I've done as a part of Fron-end Developer course
 
 How to play the game
