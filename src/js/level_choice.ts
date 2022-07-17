@@ -8,20 +8,23 @@ const levelChoicesDiv: HTMLElement | null =
 
 let clicked = false
 
-levelChoicesDiv?.addEventListener('click', (event: Event) => {
+levelChoicesDiv?.addEventListener('click', (event) => {
     event.preventDefault()
-    const target = event.target as HTMLElement
 
-    if (target.closest('button')) {
-        console.log(target.dataset.level)
+    if (event.target instanceof HTMLElement) {
+        const target = event.target
 
-        levelChoiceButtons.forEach((levelButton) => {
-            levelButton.classList.remove('error')
-        })
+        if (target.closest('button')) {
+            console.log(target.dataset.level)
 
-        localStorage.setItem('level', target.dataset.level!)
+            levelChoiceButtons.forEach((levelButton) => {
+                levelButton.classList.remove('error')
+            })
 
-        clicked = true
+            localStorage.setItem('level', target.dataset.level!)
+
+            clicked = true
+        }
     }
 })
 
