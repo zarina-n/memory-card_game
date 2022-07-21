@@ -88,36 +88,34 @@ function getRandomCards(data: dataObject, toSliceNumber: number) {
 }
 
 function checkCardsForMatch(event: Event) {
-    if (event.target instanceof HTMLElement) {
-        const clickedCard = event.target
+    const clickedCard = event.target as Element
 
-        clickedCard?.classList.add('clicked')
+    clickedCard?.classList.add('clicked')
 
-        const clickedCards = document.querySelectorAll<HTMLElement>('.clicked')
-        const flippedCards = document.querySelectorAll<HTMLElement>('.flipCard')
+    const clickedCards = document.querySelectorAll<HTMLElement>('.clicked')
+    const flippedCards = document.querySelectorAll<HTMLElement>('.flipCard')
 
-        if (clickedCards.length === 2) {
-            if (
-                clickedCards[0].getAttribute('name') ===
-                clickedCards[1].getAttribute('name')
-            ) {
-                setTimeout(() => {
-                    if (flippedCards.length === cardPairs * 2) {
-                        showPopupScreen(winWindow!)
-                    }
-                    console.log('score')
-                }, 1000)
+    if (clickedCards.length === 2) {
+        if (
+            clickedCards[0].getAttribute('name') ===
+            clickedCards[1].getAttribute('name')
+        ) {
+            setTimeout(() => {
+                if (flippedCards.length === cardPairs * 2) {
+                    showPopupScreen(winWindow!)
+                }
+                console.log('score')
+            }, 1000)
 
-                clickedCards.forEach((card) => {
-                    card.classList.remove('clicked')
-                    card.style.pointerEvents = 'none'
-                })
-            } else {
-                setTimeout(() => {
-                    showPopupScreen(looseWindow!)
-                    console.log('loose')
-                }, 1000)
-            }
+            clickedCards.forEach((card) => {
+                card.classList.remove('clicked')
+                card.style.pointerEvents = 'none'
+            })
+        } else {
+            setTimeout(() => {
+                showPopupScreen(looseWindow!)
+                console.log('loose')
+            }, 1000)
         }
     }
 }

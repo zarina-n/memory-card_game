@@ -1,4 +1,4 @@
-function randomize(data, toSliceNumber) {
+function getRandomCards(data, toSliceNumber) {
     data.sort(() => Math.random() - 0.5)
 
     const newArray = data.slice(1, toSliceNumber.valueOf() + 1)
@@ -10,4 +10,4 @@ function randomize(data, toSliceNumber) {
     return finalCardFieldArray
 }
 
-module.exports = { randomize }
+module.exports = { getRandomCards }
