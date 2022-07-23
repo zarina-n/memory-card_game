@@ -1,5 +1,6 @@
-const { it, expect, describe } = require('@jest/globals')
-const { getRandomCards } = require('../files-to-test/getRandomCards')
+/* eslint-disable no-undef */
+// import { getRandomCards } from '../game_screen'
+import getRandomCards from '../getRandomCards'
 
 global.Math.random = () => 0.5
 

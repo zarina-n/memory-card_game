@@ -1,3 +1,5 @@
+import getRandomCards from './getRandomCards'
+
 const cardsField: HTMLElement | null = document.getElementById('cards-field')
 const winWindow: HTMLElement | null = document.getElementById('win-window')
 const looseWindow: HTMLElement | null = document.getElementById('loose-window')
@@ -75,17 +77,19 @@ function getLevelNumber() {
     return cardPairs
 }
 
-function getRandomCards(data: dataObject, toSliceNumber: number) {
-    data.sort(() => Math.random() - 0.5)
+// function getRandomCards(data: dataObject, toSliceNumber: number) {
+//     data.sort(() => Math.random() - 0.5)
 
-    const newArray = data.slice(1, toSliceNumber.valueOf() + 1)
-    const duplicateArray = [...newArray]
-    const finalCardSetArray = newArray.concat(duplicateArray)
+//     const newArray = data.slice(1, toSliceNumber.valueOf() + 1)
+//     const duplicateArray = [...newArray]
+//     const finalCardSetArray = newArray.concat(duplicateArray)
 
-    finalCardSetArray.sort(() => Math.random() - 0.5)
+//     finalCardSetArray.sort(() => Math.random() - 0.5)
 
-    return finalCardSetArray
-}
+//     return finalCardSetArray
+// }
+
+// export { getRandomCards }
 
 function checkCardsForMatch(event: Event) {
     const clickedCard = event.target as Element
