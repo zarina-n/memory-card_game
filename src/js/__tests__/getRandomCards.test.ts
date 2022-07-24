@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-// import { getRandomCards } from '../game_screen'
 import getRandomCards from '../getRandomCards'
 
 global.Math.random = () => 0.5

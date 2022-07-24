@@ -13,11 +13,11 @@ const LEVEL_HARD = 'hard'
 
 let totalSeconds = 0
 
-interface dataObject {
+interface CardDataObject {
     [key: string]: any
 }
 
-const data: dataObject = {}
+const data: CardDataObject = {}
 
 const cardData = [
     { imgSrc: './static/img/cards/card_1.jpg', name: 'card_1' },
@@ -77,20 +77,6 @@ function getLevelNumber() {
     return cardPairs
 }
 
-// function getRandomCards(data: dataObject, toSliceNumber: number) {
-//     data.sort(() => Math.random() - 0.5)
-
-//     const newArray = data.slice(1, toSliceNumber.valueOf() + 1)
-//     const duplicateArray = [...newArray]
-//     const finalCardSetArray = newArray.concat(duplicateArray)
-
-//     finalCardSetArray.sort(() => Math.random() - 0.5)
-
-//     return finalCardSetArray
-// }
-
-// export { getRandomCards }
-
 function checkCardsForMatch(event: Event) {
     const clickedCard = event.target as Element
 
@@ -144,7 +130,7 @@ function showCardTimer(card: HTMLElement) {
 function cardGenerator() {
     const cards = getRandomCards(cardData, cardPairs)
 
-    cards.forEach((item: dataObject) => {
+    cards.forEach((item: CardDataObject) => {
         const card = document.createElement('div')
         const cardFace = document.createElement('img')
         const cardBack = document.createElement('img')

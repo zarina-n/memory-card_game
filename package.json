@@ -9,17 +9,21 @@
         "lint:js": "eslint ./src/**/*.js",
         "lint:css": "stylelint ./src/**/*.css",
         "lint:ts": "tsc --noEmit",
-        "lint": "npm run lint:ts && npm run lint:css && npm run test",
+        "lint": "npm run lint:ts && npm run lint:css",
         "prepare": "husky install",
         "build": "set NODE_ENV=production&&npx webpack",
         "start": "webpack-dev-server --open"
     },
     "jest": {
         "transform": {
-          ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+            ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
         },
         "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-        "moduleFileExtensions": ["ts", "tsx", "js"]
+        "moduleFileExtensions": [
+            "ts",
+            "tsx",
+            "js"
+        ]
     },
     "repository": {
         "type": "git",

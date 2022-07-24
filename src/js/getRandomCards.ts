@@ -1,8 +1,8 @@
-interface dataObject {
+interface CardDataObject {
     [key: string]: any
 }
 
-function getRandomCards(data: dataObject, toSliceNumber: number) {
+function getRandomCards(data: CardDataObject, toSliceNumber: number) {
     data.sort(() => Math.random() - 0.5)
 
     const newArray = data.slice(1, toSliceNumber.valueOf() + 1)
