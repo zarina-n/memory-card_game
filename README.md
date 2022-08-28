@@ -11,7 +11,7 @@ After you finish the game, you can play it again on a different leve or same one
 #### Installation
 To run this application, download the GitHub zip file or clone the repository. Open it with VSCode, open the terminal, run "npm run start" command. Enjoy the game
 
-## What I learned and used for this project and while learning Web Developmetn Tools:
+### What I learned and used for this project and while learning Web Developmetn Tools:
 * Webpack
 * Git Version Control 
 * Understanding the lifecycle of a front-end project
