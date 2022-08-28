@@ -20,5 +20,6 @@ To run this application, download the GitHub zip file or clone the repository. O
 * Ability to work with developer tools in the browser: console, element inspector
 * Ability to verify that a function/feature has been tested
 * Ability to run unit tests
+* *Also got familiar with Typescript*
 
 
