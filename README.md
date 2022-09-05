@@ -4,6 +4,10 @@
 
 Memory game is a type of classical memory card game which I've done as a part of Fron-end Developer course while learning Web Developmetn Tools (Git, Webpack)
 
+You can try this game here: https://memory-card-game-by-z.netlify.app/
+
+(It is in Russian now, English version will be added soon)
+
 ### How to play the game
 You need to choose the difficulty level first - 1 is easy, 2 is medium and 3 is hard. It will lead you to the game itself. Your task is to remeber all the pairs of card in 5 seconds, because after that it will be flipped and timer will start. If you choose all pairs correct you win, but if you make a mistake - you loose, so pay attention! 
 After you finish the game, you can play it again on a different leve or same one, it is up to you
