@@ -5,7 +5,6 @@
     "main": "index.js",
     "scripts": {
         "test": "jest",
-        "deploy": "gh-pages -d dist",
         "format": "prettier --write ./src/",
         "lint:js": "eslint ./src/**/*.js",
         "lint:css": "stylelint ./src/**/*.css",
@@ -47,7 +46,6 @@
         "eslint": "^8.17.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.0.0",
-        "gh-pages": "^4.0.0",
         "html-webpack-plugin": "^5.5.0",
         "husky": "^8.0.1",
         "jest": "^28.1.3",
