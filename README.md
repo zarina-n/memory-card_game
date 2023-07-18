@@ -21,7 +21,8 @@ To run this application, download the GitHub zip file or clone the repository. O
 
 2. Game screen
 
-![image](https://github.com/zarina-n/memory-card_game/assets/101009726/1761b9ec-4463-4708-a67b-5e3156bf965d)
+![image](https://github.com/zarina-n/memory-card_game/assets/101009726/8cc57a7e-4a20-4bee-9776-11400626730b)
+
 
 ![image](https://github.com/zarina-n/memory-card_game/assets/101009726/81a85509-b5bb-4e33-9ef4-48b0cb7b4c5b)
 
